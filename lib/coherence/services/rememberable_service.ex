@@ -8,6 +8,7 @@ defmodule Coherence.RememberableService do
   alias Coherence.Schemas
 
   require Logger
+
   @doc """
   Delete a rememberable token.
   """

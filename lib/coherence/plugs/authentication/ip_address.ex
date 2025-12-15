@@ -48,7 +48,7 @@ defmodule Coherence.Authentication.IpAddress do
 
   require Logger
 
-  @dialyzer [ {:nowarn_function, call: 2} ]
+  @dialyzer [{:nowarn_function, call: 2}]
 
   @type t :: Ecto.Schema.t() | map()
   @type conn :: Plug.Conn.t()

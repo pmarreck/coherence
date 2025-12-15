@@ -12,7 +12,10 @@ defmodule Coherence.Mixfile do
       compilers: Mix.compilers(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
-      docs: [extras: ["README.md", "CODE_OF_CONDUCT.md", "CONTRIBUTING.md", "LICENSE"], main: "Coherence"],
+      docs: [
+        extras: ["README.md", "CODE_OF_CONDUCT.md", "CONTRIBUTING.md", "LICENSE"],
+        main: "Coherence"
+      ],
       deps: deps(),
       package: package(),
       dialyzer: [plt_add_apps: [:mix]],

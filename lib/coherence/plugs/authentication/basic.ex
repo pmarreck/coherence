@@ -39,7 +39,7 @@ defmodule Coherence.Authentication.Basic do
     create_login(email, password, user_data, opts)
   end
 
-  @spec init(Keyword.t) :: map
+  @spec init(Keyword.t()) :: map
   def init(opts) do
     %{
       realm: Keyword.get(opts, :realm, Messages.backend().restricted_area()),
@@ -49,7 +49,7 @@ defmodule Coherence.Authentication.Basic do
     }
   end
 
-  @spec call(conn, Keyword.t) :: conn
+  @spec call(conn, Keyword.t()) :: conn
   def call(conn, opts) do
     conn
     |> get_auth_header

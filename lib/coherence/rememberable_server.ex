@@ -5,8 +5,8 @@ defmodule Coherence.RememberableServer do
 
   @name __MODULE__
 
-    @doc false
-    def child_spec(args),
+  @doc false
+  def child_spec(args),
     do: %{
       id: @name,
       start: {__MODULE__, :start_link, args},

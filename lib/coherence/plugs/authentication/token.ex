@@ -98,7 +98,7 @@ defmodule Coherence.Authentication.Token do
   def get_token_from_params(conn, param),
     do: {conn, conn.params[param]}
 
-  @spec get_token_from_header(conn, binary()) :: {conn, String.t}
+  @spec get_token_from_header(conn, binary()) :: {conn, String.t()}
   def get_token_from_header(conn, param),
     do: {conn, get_first_req_header(conn, param)}
 
@@ -114,11 +114,13 @@ defmodule Coherence.Authentication.Token do
     |> save_token_in_session(param)
   end
 
-  @spec check_token_from_session({conn, nil | String.t()}, atom() | binary()) :: {conn, nil | String.t()}
+  @spec check_token_from_session({conn, nil | String.t()}, atom() | binary()) ::
+          {conn, nil | String.t()}
   def check_token_from_session({conn, nil}, param), do: get_token_from_session(conn, param)
   def check_token_from_session({conn, creds}, _param), do: {conn, creds}
 
-  @spec save_token_in_session({conn, nil | String.t()}, atom() | binary()) :: {conn, nil | String.t()}
+  @spec save_token_in_session({conn, nil | String.t()}, atom() | binary()) ::
+          {conn, nil | String.t()}
   def save_token_in_session({conn, nil}, _), do: {conn, nil}
 
   def save_token_in_session({conn, creds}, param) do
