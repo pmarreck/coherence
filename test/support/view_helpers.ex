@@ -148,7 +148,7 @@ defmodule TestCoherenceWeb.ViewHelpers do
   def recover_link(_conn, _user_schema, false), do: []
 
   def recover_link(conn, user_schema, text) do
-    if user_schema.recoverable?, do: [recover_link(conn, text)], else: []
+    if user_schema.recoverable?(), do: [recover_link(conn, text)], else: []
   end
 
   @spec recover_link(conn, String.t()) :: tuple
@@ -159,7 +159,7 @@ defmodule TestCoherenceWeb.ViewHelpers do
   def register_link(_conn, _user_schema, false), do: []
 
   def register_link(conn, user_schema, text) do
-    if user_schema.registerable?, do: [register_link(conn, text)], else: []
+    if user_schema.registerable?(), do: [register_link(conn, text)], else: []
   end
 
   @spec register_link(conn, String.t()) :: tuple
@@ -196,7 +196,7 @@ defmodule TestCoherenceWeb.ViewHelpers do
   def confirmation_link(_conn, _user_schema, false), do: []
 
   def confirmation_link(conn, user_schema, text) do
-    if user_schema.confirmable?, do: [confirmation_link(conn, text)], else: []
+    if user_schema.confirmable?(), do: [confirmation_link(conn, text)], else: []
   end
 
   @spec confirmation_link(conn, String.t()) :: tuple
@@ -225,7 +225,7 @@ defmodule TestCoherenceWeb.ViewHelpers do
   end
 
   defp profile_link(current_user, conn) do
-    if Config.user_schema().registerable? do
+    if Config.user_schema().registerable?() do
       link(current_user.name, to: coherence_path(@helpers, :registration_path, conn, :show))
     else
       current_user.name

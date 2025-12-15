@@ -1,5 +1,5 @@
 defmodule TestCoherenceWeb.DummyController do
-  use Phoenix.Controller
+  use Phoenix.Controller, formats: [:html, :json]
 
   def index(conn, _) do
     html(conn, "Index rendered")

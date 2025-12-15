@@ -68,7 +68,7 @@ defmodule CoherenceTest.PasswordController do
       }
 
       conn = post conn, password_path(conn, :create), params
-      assert conn.private[:phoenix_flash] == %{"error" => "Could not find that email address"}
+      assert conn.assigns.flash == %{"error" => "Could not find that email address"}
       assert conn.private[:phoenix_template] == "new.html"
     end
 
@@ -83,7 +83,7 @@ defmodule CoherenceTest.PasswordController do
 
       conn = post conn, password_path(conn, :create), params
 
-      assert conn.private[:phoenix_flash] == %{
+      assert conn.assigns.flash == %{
                "error" => "Mailer configuration required!",
                "info" => "Reset email sent. Check your email for a reset link."
              }
@@ -106,7 +106,7 @@ defmodule CoherenceTest.PasswordController do
 
       conn = post conn, password_path(conn, :create), params
 
-      assert conn.private[:phoenix_flash] == %{
+      assert conn.assigns.flash == %{
                "error" => "Mailer configuration required!",
                "info" => "Reset email sent. Check your email for a reset link."
              }
@@ -125,7 +125,7 @@ defmodule CoherenceTest.PasswordController do
 
       conn = post conn, password_path(conn, :create), params
 
-      assert conn.private[:phoenix_flash] == %{
+      assert conn.assigns.flash == %{
                "error" => "Mailer configuration required!",
                "info" => "Reset email sent. Check your email for a reset link."
              }
@@ -138,7 +138,7 @@ defmodule CoherenceTest.PasswordController do
     test "invalid reset password token", %{conn: conn, user: user} do
       params = %{"id" => "123456789"}
       conn = get conn, password_path(conn, :edit, user), params
-      assert conn.private[:phoenix_flash] == %{"error" => "Invalid reset token."}
+      assert conn.assigns.flash == %{"error" => "Invalid reset token."}
       assert html_response(conn, 302)
     end
 
@@ -148,7 +148,7 @@ defmodule CoherenceTest.PasswordController do
       insert_user(%{reset_password_sent_at: sent_at, reset_password_token: token})
       params = %{"id" => token}
       conn = get conn, password_path(conn, :edit, token), params
-      assert conn.private[:phoenix_flash] == %{"error" => "Password reset token expired."}
+      assert conn.assigns.flash == %{"error" => "Password reset token expired."}
       assert html_response(conn, 302)
     end
 
@@ -279,7 +279,7 @@ defmodule CoherenceTest.PasswordController do
       }
 
       conn = put conn, password_path(conn, :update, user), params
-      assert conn.private[:phoenix_flash] == %{"info" => "Password updated successfully."}
+      assert conn.assigns.flash == %{"info" => "Password updated successfully."}
       assert html_response(conn, 302)
       [t1] = Repo.all(Trackable)
       assert t1.action == "password_reset"

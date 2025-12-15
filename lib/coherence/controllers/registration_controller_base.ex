@@ -39,7 +39,7 @@ defmodule Coherence.RegistrationControllerBase do
       @spec new(conn, params) :: conn
       def new(conn, _params) do
         user_schema = Config.user_schema()
-        changeset = Controller.changeset(:registration, user_schema, user_schema.__struct__)
+        changeset = Controller.changeset(:registration, user_schema, user_schema.__struct__())
         render(conn, :new, email: "", changeset: changeset)
       end
 
@@ -56,7 +56,7 @@ defmodule Coherence.RegistrationControllerBase do
         :registration
         |> Controller.changeset(
           user_schema,
-          user_schema.__struct__,
+          user_schema.__struct__(),
           Controller.permit(
             registration_params,
             Config.registration_permitted_attributes() ||

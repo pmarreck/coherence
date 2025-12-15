@@ -27,7 +27,7 @@ defmodule Coherence.ConfirmationControllerBase do
       @spec new(Plug.Conn.t(), map()) :: Plug.Conn.t()
       def new(conn, _params) do
         user_schema = Config.user_schema()
-        cs = Controller.changeset(:confirmation, user_schema, user_schema.__struct__)
+        cs = Controller.changeset(:confirmation, user_schema, user_schema.__struct__())
 
         conn
         |> render(:new, email: "", changeset: cs)
@@ -42,7 +42,7 @@ defmodule Coherence.ConfirmationControllerBase do
         email = password_params["email"]
         user = @schemas.get_user_by_email(email)
 
-        changeset = Controller.changeset(:confirmation, user_schema, user_schema.__struct__)
+        changeset = Controller.changeset(:confirmation, user_schema, user_schema.__struct__())
 
         case user do
           nil ->
@@ -89,7 +89,7 @@ defmodule Coherence.ConfirmationControllerBase do
 
         case user do
           nil ->
-            changeset = Controller.changeset(:confirmation, user_schema, user_schema.__struct__)
+            changeset = Controller.changeset(:confirmation, user_schema, user_schema.__struct__())
 
             conn
             |> respond_with(

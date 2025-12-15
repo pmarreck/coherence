@@ -1,6 +1,7 @@
 defmodule CoherenceTest.Authentication.Token do
   use ExUnit.Case, async: true
-  use Plug.Test
+  import Plug.Conn
+  import Plug.Test
 
   @error_msg ~s'{"error":"authentication required"}'
 

@@ -1,6 +1,7 @@
 defmodule Coherence.Authentication.Basic.Test do
   use ExUnit.Case, async: true
-  use Plug.Test
+  import Plug.Conn
+  import Plug.Test
 
   defmodule TestPlug do
     use Plug.Builder

@@ -1,6 +1,7 @@
 defmodule CoherenceTest.Plug.Session do
   use ExUnit.Case, async: true
-  use Plug.Test
+  import Plug.Conn
+  import Plug.Test
   alias Coherence.Authentication.Session
   alias Coherence.{Config}
   alias TestCoherence.{User, Coherence.Rememberable}
@@ -121,7 +122,7 @@ defmodule CoherenceTest.Plug.Session do
 
       conn = call_cookie(RememberablePlug, [], cookie)
 
-      assert get_in(conn.private, [:phoenix_flash, "error"]) =~
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) =~
                "You are using an invalid security token for this site!"
 
       assert conn.status == 302

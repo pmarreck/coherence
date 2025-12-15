@@ -128,7 +128,7 @@ defmodule Coherence.InvitationControllerBase do
               Controller.changeset(
                 :invitation,
                 user_schema,
-                user_schema.__struct__,
+                user_schema.__struct__(),
                 Map.take(invite, Config.forwarded_invitation_fields())
               )
 
@@ -161,7 +161,7 @@ defmodule Coherence.InvitationControllerBase do
             :invitation
             |> Controller.changeset(
               user_schema,
-              user_schema.__struct__,
+              user_schema.__struct__(),
               Controller.permit(
                 params["user"],
                 Config.registration_permitted_attributes() ||

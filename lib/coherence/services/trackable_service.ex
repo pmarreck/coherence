@@ -95,7 +95,7 @@ defmodule Coherence.TrackableService do
     schema = schema(Trackable)
 
     changeset =
-      Controller.changeset(:session, schema, schema.__struct__, %{
+      Controller.changeset(:session, schema, schema.__struct__(), %{
         action: "login",
         sign_in_count: trackable.sign_in_count + 1,
         current_sign_in_at: NaiveDateTime.utc_now(),
@@ -156,7 +156,7 @@ defmodule Coherence.TrackableService do
     Schemas.update!(changeset)
 
     changeset =
-      Controller.changeset(:session, schema, schema.__struct__, %{
+      Controller.changeset(:session, schema, schema.__struct__(), %{
         action: "logout",
         sign_in_count: trackable.sign_in_count,
         last_sign_in_at: trackable.current_sign_in_at,
@@ -213,7 +213,7 @@ defmodule Coherence.TrackableService do
     schema = schema(Trackable)
 
     changeset =
-      Controller.changeset(:session, schema, schema.__struct__, %{
+      Controller.changeset(:session, schema, schema.__struct__(), %{
         action: action,
         sign_in_count: trackable.sign_in_count,
         last_sign_in_at: trackable.last_sign_in_at,

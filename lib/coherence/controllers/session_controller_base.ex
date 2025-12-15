@@ -208,7 +208,7 @@ defmodule Coherence.SessionControllerBase do
         [user, user_schema, remember, lockable?, remember, params] = opts
 
         conn =
-          if lockable? && user.locked_at() do
+          if lockable? && user.locked_at do
             Controller.unlock!(user)
             track_unlock(conn, user, user_schema.trackable_table?())
           else

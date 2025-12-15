@@ -31,7 +31,7 @@ defmodule Coherence.UnlockControllerBase do
       @spec new(conn, params) :: conn
       def new(conn, _params) do
         user_schema = Config.user_schema()
-        changeset = Controller.changeset(:unlock, user_schema, user_schema.__struct__)
+        changeset = Controller.changeset(:unlock, user_schema, user_schema.__struct__())
         render(conn, "new.html", changeset: changeset)
       end
 
@@ -102,7 +102,7 @@ defmodule Coherence.UnlockControllerBase do
               Controller.unlock!(user)
 
               conn
-              |> TrackableService.track_unlock_token(user, user_schema.trackable_table?)
+              |> TrackableService.track_unlock_token(user, user_schema.trackable_table?())
               |> respond_with(:unlock_update_success, %{
                 params: params,
                 info: Messages.backend().your_account_has_been_unlocked()

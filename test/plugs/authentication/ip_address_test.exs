@@ -1,6 +1,7 @@
 defmodule CoherenceTest.Authentication.IpAddress do
   use ExUnit.Case, async: true
-  use Plug.Test
+  import Plug.Conn
+  import Plug.Test
   alias Coherence.Authentication.IpAddress
   alias Plug.Adapters.CoherenceTest.Conn, as: TestConn
 

@@ -21,7 +21,7 @@ defmodule Coherence.CoherenceView do
   defp concat([h | t], acc), do: concat(t, [h, @seperator | acc])
 
   defp recovery_link(conn, user_schema) do
-    if user_schema.recoverable? do
+    if user_schema.recoverable?() do
       [link("Forgot Your Password?", to: password_path(conn, :new))]
     else
       []

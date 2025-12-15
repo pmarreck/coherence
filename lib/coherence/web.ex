@@ -24,7 +24,7 @@ defmodule CoherenceWeb do
   @doc false
   def controller do
     quote do
-      use Phoenix.Controller
+      use Phoenix.Controller, formats: [:html, :json]
       import Coherence.Controller
       import Ecto
       import Ecto.Query

@@ -33,7 +33,10 @@ defmodule CoherenceTestWeb.ViewHelpers do
     {:ok, conn: conn, user: user}
   end
 
-  @helpers Module.concat(Application.get_env(:coherence, :web_module), Router.Helpers)
+  @helpers Module.concat(
+             Application.compile_env(:coherence, :web_module, TestCoherenceWeb),
+             Router.Helpers
+           )
 
   test "coherence_path", %{conn: conn} do
     assert ViewHelpers.coherence_path(@helpers, :unlock_path, conn, :new) == "/unlocks/new"
@@ -101,8 +104,11 @@ defmodule CoherenceTestWeb.ViewHelpers do
     result1 = item1 |> safe_to_string
     result2 = item2 |> safe_to_string
 
-    assert Floki.find(result1, "li") |> Floki.text() == "test"
-    assert Floki.find(result2, "li a") |> Floki.text() == @signout_link
+    {:ok, doc1} = Floki.parse_document(result1)
+    {:ok, doc2} = Floki.parse_document(result2)
+
+    assert Floki.find(doc1, "li") |> Floki.text() == "test"
+    assert Floki.find(doc2, "li a") |> Floki.text() == @signout_link
   end
 
   test "coherence_links :layout not signed" do
@@ -114,8 +120,11 @@ defmodule CoherenceTestWeb.ViewHelpers do
     result1 = item1 |> safe_to_string
     result2 = item2 |> safe_to_string
 
-    assert Floki.find(result1, "li") |> Floki.text() == "New Account"
-    assert Floki.find(result2, "li a") |> Floki.text() == "Login"
+    {:ok, doc1} = Floki.parse_document(result1)
+    {:ok, doc2} = Floki.parse_document(result2)
+
+    assert Floki.find(doc1, "li") |> Floki.text() == "New Account"
+    assert Floki.find(doc2, "li a") |> Floki.text() == "Login"
   end
 
   test "coherence_links :layout not signed no register" do

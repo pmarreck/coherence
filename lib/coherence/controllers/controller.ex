@@ -170,7 +170,7 @@ defmodule Coherence.Controller do
   """
   @spec send_confirmation(Plug.Conn.t(), Ecto.Schema.t(), module) :: Plug.Conn.t()
   def send_confirmation(conn, user, user_schema) do
-    if user_schema.confirmable? do
+    if user_schema.confirmable?() do
       token = random_string(48)
       url = router_helpers().confirmation_url(conn, :edit, token)
       Logger.debug("confirmation email url: #{inspect(url)}")
@@ -342,8 +342,8 @@ defmodule Coherence.Controller do
     |> apply(Config.create_login(), [conn, user, [id_key: Config.schema_key()]])
     |> TrackableService.track_login(
       user,
-      Config.user_schema().trackable?,
-      Config.user_schema().trackable_table?
+      Config.user_schema().trackable?(),
+      Config.user_schema().trackable_table?()
     )
   end
 
@@ -360,8 +360,8 @@ defmodule Coherence.Controller do
     |> apply(Config.delete_login(), [conn, [id_key: Config.schema_key()] ++ opts])
     |> TrackableService.track_logout(
       user,
-      user.__struct__.trackable?,
-      user.__struct__.trackable_table?
+      user.__struct__.trackable?(),
+      user.__struct__.trackable_table?()
     )
     |> RememberableService.delete_rememberable(user)
   end

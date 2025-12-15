@@ -34,7 +34,7 @@ defmodule Coherence.PasswordControllerBase do
       @spec new(conn, params) :: conn
       def new(conn, _params) do
         user_schema = Config.user_schema()
-        changeset = Controller.changeset(:password, user_schema, user_schema.__struct__)
+        changeset = Controller.changeset(:password, user_schema, user_schema.__struct__())
         render(conn, :new, email: "", changeset: changeset)
       end
 
@@ -122,7 +122,7 @@ defmodule Coherence.PasswordControllerBase do
               |> case do
                 {:ok, user} ->
                   conn
-                  |> TrackableService.track_password_reset(user, user_schema.trackable_table?)
+                  |> TrackableService.track_password_reset(user, user_schema.trackable_table?())
                   |> respond_with(
                     :password_update_success,
                     %{
@@ -156,7 +156,7 @@ defmodule Coherence.PasswordControllerBase do
           |> send_email_if_mailer(info, fn -> true end)
           |> respond_with(:password_create_success, %{params: params, info: info})
         else
-          changeset = Controller.changeset(:password, user_schema, user_schema.__struct__)
+          changeset = Controller.changeset(:password, user_schema, user_schema.__struct__())
           error = Messages.backend().could_not_find_that_email_address()
 
           conn
